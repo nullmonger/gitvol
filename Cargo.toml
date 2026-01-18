@@ -21,7 +21,7 @@ git-url-parse = "0.4.5"
 axum-test = "18.1.0"
 once_cell = "1.21.3"
 rstest = "0.26.1"
-tempfile = "3.23.0"
+tempfile = "3.24.0"
 uuid = { version = "1.19.0", features = ["v4"] }
 
 
