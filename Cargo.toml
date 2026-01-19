@@ -4,7 +4,7 @@ version = "0.2.1"
 edition = "2024"
 
 [dependencies]
-axum = { version = "0.8.7", features = ["tower-log", "tokio"] }
+axum = { version = "0.8.8", features = ["tower-log", "tokio"] }
 tracing = { version = "0.1.43", features = ["async-await", "log", "valuable"] }
 tracing-subscriber = { version = "0.3.22", features = ["env-filter"] }
 serde = { version = "1.0.228", features = ["derive"] }
