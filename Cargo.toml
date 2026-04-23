@@ -22,7 +22,7 @@ axum-test = "18.3.0"
 once_cell = "1.21.4"
 rstest = "0.26.1"
 tempfile = "3.27.0"
-uuid = { version = "1.23.0", features = ["v4"] }
+uuid = { version = "1.23.1", features = ["v4"] }
 
 
 [profile.release]
