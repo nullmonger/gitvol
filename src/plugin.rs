@@ -215,7 +215,7 @@ mod test_mocks {
 
         pub async fn temp() -> TempPlugin {
             let temp = TempBuilder::new().prefix("temp-gitvol-").tempdir().unwrap();
-            let plugin = Self::new(&temp.path(), Git::init().await.unwrap());
+            let plugin = Self::new(temp.path(), Git::init().await.unwrap());
             TempPlugin { plugin, temp }
         }
 

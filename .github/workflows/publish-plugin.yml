@@ -1,0 +1,52 @@
+name: Publish (Docker Hub plugin)
+
+on:
+  workflow_dispatch:
+    inputs:
+      plugin:
+        description: "Plugin name (namespace/name)"
+        type: string
+        default: nerjs/gitvol
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    if: startsWith(github.ref, 'refs/tags/')
+    uses: ./.github/workflows/checks.yml
+
+  publish:
+    needs: checks
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # A managed plugin is not an image: it is assembled from build/config.json
+      # plus a rootfs exported from the built image, so build-push-action does not apply.
+      - name: Export rootfs
+        run: |
+          docker build -t gitvol-rootfs .
+          mkdir -p build/rootfs
+          id=$(docker create gitvol-rootfs)
+          docker export "$id" | tar -x -C build/rootfs
+          docker rm -vf "$id"
+
+      - name: Create and push plugin
+        env:
+          PLUGIN: ${{ inputs.plugin }}
+        run: |
+          version=${GITHUB_REF_NAME#v}
+          docker plugin create "$PLUGIN:$version" build
+          docker plugin push "$PLUGIN:$version"
+
+          if [[ "$version" != *-beta* ]]; then
+            docker plugin create "$PLUGIN:latest" build
+            docker plugin push "$PLUGIN:latest"
+          fi

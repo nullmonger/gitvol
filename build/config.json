@@ -1,6 +1,6 @@
 {
   "description": "Git-backed Volume Driver",
-  "documentation": "https://github.com/nerjs/gitvol",
+  "documentation": "https://github.com/nullmonger/gitvol",
   "interface": {
     "types": ["docker.volumedriver/1.0"],
     "socket": "gitvol.sock"

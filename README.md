@@ -45,7 +45,7 @@ volumes:
   my-repo:
     driver: nerjs/gitvol
     driver_opts:
-      url: https://github.com/nerjs/gitvol.git
+      url: https://github.com/nullmonger/gitvol.git
       # Choose ONE of the two lines below (or omit both). Tags are recommended.
       # tag: v1.0.0
       # branch: main
@@ -107,6 +107,6 @@ Currently supported via embedding credentials into the URL, e.g.:
 
 ```bash
 docker volume create -d nerjs/gitvol \
-  -o url=https://<github_pat_token>@github.com/nerjs/gitvol.git \
+  -o url=https://<github_pat_token>@github.com/nullmonger/gitvol.git \
   my-private-repo
 ```
